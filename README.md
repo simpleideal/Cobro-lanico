@@ -76,11 +76,15 @@ los botones son casi negras. Los tonos claros funcionan; los muy saturados no.
 
 ### `CONTACTO`
 
-Quien recibe el comprobante. Alimenta el botón flotante de WhatsApp y el botón
-"Guardar Contacto en Agenda", y no cambia según el banco.
+Quien recibe el comprobante. Alimenta el botón flotante de WhatsApp, el botón
+"Guardar Contacto en Agenda" y el ícono de Instagram del pie, y no cambia
+según el banco.
 
 El campo `whatsapp` va con código de país y solo dígitos: `56912345678`, sin `+`
 ni espacios ni guiones.
+
+`instagram` es opcional: la URL pública del perfil. Sin él, el pie de redes
+no se muestra. No guardar parámetros de sesión (`stkn` y similares).
 
 ### `CUENTAS`
 
@@ -116,8 +120,9 @@ los suyos y las demás heredan los de `CLIENTE`.
 ## Agregar un banco al catálogo
 
 El catálogo `BANCOS` está justo debajo de los datos del cliente y se comparte
-entre todos los llaveros. Hoy tiene BCI y Banco de Chile con su logo, y Santander
-y BancoEstado con la sigla, porque sus sitios no dejan bajar el SVG oficial.
+entre todos los llaveros. Hoy tiene BCI, Banco de Chile, Santander y BancoEstado
+con su logo. Si el sitio del banco bloquea la descarga, se usa el SVG del
+header oficial (no una copia de un directorio de logos).
 
 Para un banco que no esté, la versión mínima es:
 
