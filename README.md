@@ -42,6 +42,7 @@ plantilla para que el próximo llavero tampoco lo necesite.
 | `rut` | Se escribe una sola vez, con puntos y guion. |
 | `fondo` | Fondo de la página: una imagen entre `url('...')`, o un color o degradado. |
 | `acento` | Color de los botones. |
+| `tema` | `'oscuro'` (omiso) o `'claro'`. El claro pone tarjeta blanca y texto negro. |
 
 Sobre `nombreCorto`: los campos de nombre de los bancos cortan alrededor de 30
 caracteres, así que una razón social larga llega mutilada al destinatario. Esa
@@ -58,6 +59,16 @@ depender de una imagen externa. Por ejemplo:
 
 ```js
 fondo: 'radial-gradient(circle at 50% 0%, #3a1526 0%, #0b0b0b 62%)',
+```
+
+Si la marca es clara (blanco, negro y un acento pastel), no uses foto: pon un
+color de fondo, `tema: 'claro'` y el acento de la marca. El tema claro deriva
+bordes y campos de ese acento, sin escribir los colores otra vez más abajo.
+
+```js
+fondo: '#fff5f7',
+acento: '#f7b4bd',
+tema: 'claro'
 ```
 
 Sobre `acento`: tiene que contrastar contra texto oscuro, porque las letras de
