@@ -13,6 +13,33 @@
             --text-muted: #94a3b8;
             --success: #22c55e;
             --danger: #ef4444;
+            --field-bg: rgba(70, 70, 70, 0.6);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --card-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+            --card-radio: 16px;
+            --pestana-bg: rgba(70, 70, 70, 0.6);
+            --pestana-border: rgba(255, 255, 255, 0.15);
+            --chip-border: rgba(255, 255, 255, 0.25);
+            --btn-text: #0f172a;
+            --btn-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --btn-secondary-text: var(--accent);
+            --btn-secondary-active: rgba(176, 176, 176, 0.15);
+            --modal-bg: rgba(45, 45, 45, 0.98);
+            --modal-border: rgba(255, 255, 255, 0.12);
+            --modal-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            --manual-bg: rgba(0, 0, 0, 0.35);
+            --manual-border: rgba(255, 255, 255, 0.2);
+            --toast-bg: rgba(20, 20, 20, 0.95);
+            --toast-border: rgba(255, 255, 255, 0.15);
+            --toast-text: #f8fafc;
+            --toast-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+            --barra-bg: rgba(255, 255, 255, 0.12);
+            --overlay-bg: rgba(0, 0, 0, 0.75);
+            --titulo-fuente: inherit;
+            --titulo-espacio: 0.5px;
+            --titulo-color: var(--accent);
+            --titulo-tamano: 1.15rem;
+            --field-border: transparent;
         }
 
         * {
@@ -23,7 +50,7 @@
         }
 
         body {
-            /* La imagen la pone el bloque CLIENTE. Si no carga, queda el fondo oscuro. */
+            /* El fondo lo pone el bloque CLIENTE. Si no carga, queda el respaldo. */
             background: linear-gradient(var(--velo, rgba(0, 0, 0, 0.8)), var(--velo, rgba(0, 0, 0, 0.8))),
                         var(--fondo, #1c1c1c);
             background-size: cover;
@@ -41,12 +68,12 @@
         .card {
             background-color: var(--card-bg);
             backdrop-filter: blur(8px);
-            border-radius: 16px;
+            border-radius: var(--card-radio);
             padding: 24px;
             width: 100%;
             max-width: 400px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--card-border);
         }
 
         /* Cada pestaña lleva el color institucional de su banco: es la señal más
@@ -66,8 +93,8 @@
             min-height: 52px;
             padding: 10px 8px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            background-color: rgba(70, 70, 70, 0.6);
+            border: 1px solid var(--pestana-border);
+            background-color: var(--pestana-bg);
             color: var(--text-muted);
             font-size: 0.82rem;
             font-weight: 700;
@@ -93,11 +120,16 @@
         }
 
         /* Los logos vienen en su versión para fondo oscuro. En la pestaña apagada
-           se atenúan para que se note cuál cuenta está activa. */
+           se atenúan para que se note cuál cuenta está activa. En tema claro
+           se invierten: sobre el fondo claro el blanco del SVG no se vería. */
         .pestana-logo {
             width: auto;
             opacity: 0.55;
-            transition: opacity 0.2s ease;
+            transition: opacity 0.2s ease, filter 0.2s ease;
+        }
+
+        html[data-tema="claro"] .pestana:not([aria-selected="true"]) .pestana-logo {
+            filter: invert(1);
         }
 
         .pestana[aria-selected="true"] .pestana-logo {
@@ -132,10 +164,11 @@
         }
 
         .header h1 {
-            font-size: 1.15rem;
-            color: var(--accent);
+            font-family: var(--titulo-fuente);
+            font-size: var(--titulo-tamano);
+            color: var(--titulo-color);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: var(--titulo-espacio);
             line-height: 1.3;
         }
 
@@ -147,9 +180,10 @@
 
         .field-group {
             margin-bottom: 12px;
-            background: rgba(70, 70, 70, 0.6);
+            background: var(--field-bg);
             padding: 12px 14px;
             border-radius: 10px;
+            border: 1px solid var(--field-border);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -186,7 +220,7 @@
 
         .btn-copy {
             background-color: var(--accent);
-            color: #0f172a;
+            color: var(--btn-text);
             border: none;
             padding: 8px 12px;
             border-radius: 8px;
@@ -229,7 +263,7 @@
 
         .chip {
             background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            border: 1px solid var(--chip-border);
             color: var(--text-muted);
             padding: 5px 10px;
             border-radius: 999px;
@@ -242,13 +276,13 @@
         .chip[aria-pressed="true"] {
             background: var(--accent);
             border-color: transparent;
-            color: #0f172a;
+            color: var(--btn-text);
         }
 
         .btn-primary {
             width: 100%;
             background-color: var(--accent);
-            color: #0f172a;
+            color: var(--btn-text);
             border: none;
             padding: 14px;
             border-radius: 10px;
@@ -257,7 +291,7 @@
             cursor: pointer;
             margin-top: 8px;
             transition: background 0.2s, transform 0.1s;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            box-shadow: var(--btn-shadow);
         }
 
         .btn-primary:active {
@@ -278,7 +312,7 @@
             width: 100%;
             background-color: transparent;
             border: 1px solid var(--accent);
-            color: var(--accent);
+            color: var(--btn-secondary-text);
             padding: 12px;
             border-radius: 10px;
             font-weight: bold;
@@ -289,7 +323,7 @@
         }
 
         .btn-secondary:active {
-            background-color: rgba(176, 176, 176, 0.15);
+            background-color: var(--btn-secondary-active);
         }
 
         .btn-secondary.copied {
@@ -335,7 +369,7 @@
         .overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.75);
+            background: var(--overlay-bg);
             backdrop-filter: blur(4px);
             display: none;
             justify-content: center;
@@ -349,13 +383,13 @@
         }
 
         .modal {
-            background-color: rgba(45, 45, 45, 0.98);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 16px;
+            background-color: var(--modal-bg);
+            border: 1px solid var(--modal-border);
+            border-radius: var(--card-radio);
             padding: 22px;
             width: 100%;
             max-width: 400px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            box-shadow: var(--modal-shadow);
         }
 
         .modal-top {
@@ -385,7 +419,7 @@
         .barra {
             height: 4px;
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.12);
+            background: var(--barra-bg);
             overflow: hidden;
             margin-bottom: 18px;
         }
@@ -443,8 +477,8 @@
             margin-top: 14px;
             padding: 12px;
             border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid var(--manual-border);
+            background: var(--manual-bg);
             color: var(--text-main);
             font-size: 0.9rem;
             resize: vertical;
@@ -455,14 +489,14 @@
             left: 50%;
             bottom: 28px;
             transform: translate(-50%, 20px);
-            background: rgba(20, 20, 20, 0.95);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: var(--text-main);
+            background: var(--toast-bg);
+            border: 1px solid var(--toast-border);
+            color: var(--toast-text);
             padding: 12px 18px;
             border-radius: 999px;
             font-size: 0.85rem;
             font-weight: 600;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+            box-shadow: var(--toast-shadow);
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.2s ease, transform 0.2s ease;
@@ -630,31 +664,35 @@
 
         const CLIENTE = {
             // Se ve en la pestaña del navegador y al compartir el enlace.
-            titulo: 'Datos de Transferencia - Constructora LP',
+            titulo: 'Datos de Transferencia - La Nico',
             // Encabezado de la tarjeta.
-            empresa: 'Constructora y Comercializadora LP SpA',
+            empresa: 'La Nico',
             // Nombre legal completo, tal como está en el SII.
-            razonSocial: 'CONSTRUCTORA Y COMERCIALIZADORA LP SPA',
+            razonSocial: 'NICOLE ANDREA VARGAS CORONADO',
             // Los campos de nombre de los bancos cortan alrededor de 30 caracteres,
             // así que al formulario va esta versión corta.
-            nombreCorto: 'Constructora LP SpA',
+            nombreCorto: 'Nicole Vargas Coronado',
             // Se escribe una sola vez: los tres formatos se derivan de aquí.
-            rut: '78.040.773-5',
-            // Imagen de fondo. Conviene una foto oscura del rubro del cliente.
-            fondo: "url('https://images.unsplash.com/photo-1591955506264-3f5a6834570a?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Zm9uZG9zJTIwZGUlMjBwYW50YWxsYSUyMGRlJTIwY29uc3RydWNjaSVDMyVCM258ZW58MHx8MHx8fDA%3D')",
+            rut: '21.004.814-6',
+            // Color o foto de fondo. Con tema claro conviene un color de marca,
+            // no una imagen: el velo oscuro de las fotos pelearía con la tarjeta.
+            fondo: '#fff5f7',
             // Color de los botones. Debe contrastar contra texto oscuro.
-            acento: '#b0b0b0'
+            acento: '#f7b4bd',
+            // "claro" pone tarjeta blanca y texto negro. Sin esto, o con
+            // "oscuro", la plantilla sigue en el tema oscuro de origen.
+            tema: 'claro'
         };
 
         // Quien recibe el comprobante. No cambia según el banco.
         const CONTACTO = {
-            nombre: 'Luis Paillaleve - Constructora LP',
-            telefono: '+56995663306',
-            correo: 'LPCONSTRUCTORA0@GMAIL.COM',
+            nombre: 'Nicole Vargas Coronado',
+            telefono: '+56957543101',
+            correo: 'nicolevargasc2002@gmail.com',
             // Solo dígitos con código de país, sin + ni espacios.
-            whatsapp: '56995663306',
-            mensajeWhatsapp: 'Hola Luis, envío comprobante de transferencia.',
-            archivoVcard: 'Luis_Paillaleve_Constructora_LP.vcf'
+            whatsapp: '56957543101',
+            mensajeWhatsapp: 'Hola Nicole, envío comprobante de transferencia.',
+            archivoVcard: 'La_Nico.vcf'
         };
 
         /* Las cuentas del cliente, en el orden en que aparecen las pestañas.
@@ -663,15 +701,17 @@
            Con una sola cuenta la barra de pestañas no se muestra. */
         const CUENTAS = [
             {
-                banco: 'bci',
-                tipoCuenta: 'Cuenta Corriente',
-                cuenta: '97485799'
+                banco: 'bancoEstado',
+                tipoCuenta: 'CuentaRUT',
+                // En BancoEstado la CuentaRUT es el RUT sin puntos ni guion.
+                // Este número sale de esa regla, no de un dato escrito aparte.
+                cuenta: '210048146'
             },
             {
-                banco: 'bancoDeChile',
+                banco: 'santander',
                 tipoCuenta: 'Cuenta Corriente',
-                cuenta: '2602899910',
-                correo: 'joserespaldo4@gmail.com'
+                // Viene del dato "0 000 97 20321 0".
+                cuenta: '000097203210'
             }
         ];
 
@@ -1010,7 +1050,7 @@
                 clave: 'tipoCuenta',
                 label: 'Tipo de Cuenta',
                 seleccionar: true,
-                ayuda: 'Elige "Cuenta Corriente" en el menú del formulario.'
+                ayuda: 'Elige el tipo de cuenta en el menú del formulario.'
             },
             {
                 clave: 'cuenta',
@@ -1034,7 +1074,9 @@
                 ((indicePaso + 1) / pasos.length) * 100 + '%';
             document.getElementById('pasoLabel').textContent = paso.label;
             document.getElementById('pasoValor').textContent = valorDe(paso.clave);
-            document.getElementById('pasoAyuda').textContent = paso.ayuda;
+            document.getElementById('pasoAyuda').textContent = paso.clave === 'tipoCuenta'
+                ? 'Elige "' + valorDe('tipoCuenta') + '" en el menú del formulario.'
+                : paso.ayuda;
             document.getElementById('btnPasoAtras').disabled = indicePaso === 0;
             document.getElementById('btnPasoAtras').style.opacity = indicePaso === 0 ? '0.4' : '1';
 
@@ -1127,6 +1169,72 @@
             window.URL.revokeObjectURL(url);
         });
 
+        /* Convierte un hex del bloque CLIENTE a rgba. Sirve para teñir bordes
+           y campos con el acento, sin escribir ese color otra vez más abajo. */
+        function hexARgba(hex, alfa) {
+            const limpio = String(hex).replace('#', '').trim();
+            if (!/^[0-9a-fA-F]{3}$|^[0-9a-fA-F]{6}$/.test(limpio)) {
+                return 'rgba(0, 0, 0, ' + alfa + ')';
+            }
+            const lleno = limpio.length === 3
+                ? limpio.split('').map((c) => c + c).join('')
+                : limpio;
+            const n = parseInt(lleno, 16);
+            return 'rgba(' + ((n >> 16) & 255) + ', ' + ((n >> 8) & 255) + ', ' + (n & 255) + ', ' + alfa + ')';
+        }
+
+        function aplicarTema(tema) {
+            const raiz = document.documentElement;
+            const esClaro = tema === 'claro';
+            raiz.setAttribute('data-tema', esClaro ? 'claro' : 'oscuro');
+
+            if (!esClaro) {
+                return;
+            }
+
+            const acento = CLIENTE.acento;
+            const vars = {
+                '--card-bg': '#ffffff',
+                '--text-main': '#111111',
+                '--text-muted': '#6b5560',
+                '--field-bg': hexARgba(acento, 0.16),
+                '--card-border': hexARgba(acento, 0.55),
+                '--card-shadow': '0 12px 32px ' + hexARgba(acento, 0.28),
+                '--card-radio': '20px',
+                '--pestana-bg': hexARgba(acento, 0.12),
+                '--pestana-border': hexARgba(acento, 0.45),
+                '--chip-border': hexARgba(acento, 0.7),
+                '--btn-text': '#111111',
+                '--btn-shadow': '0 2px 10px ' + hexARgba(acento, 0.45),
+                '--btn-secondary-text': '#111111',
+                '--btn-secondary-active': hexARgba(acento, 0.2),
+                '--modal-bg': '#ffffff',
+                '--modal-border': hexARgba(acento, 0.55),
+                '--modal-shadow': '0 12px 32px rgba(17, 17, 17, 0.12)',
+                '--manual-bg': hexARgba(acento, 0.12),
+                '--manual-border': hexARgba(acento, 0.55),
+                '--toast-bg': '#111111',
+                '--toast-border': acento,
+                '--toast-text': '#f8fafc',
+                '--toast-shadow': '0 6px 20px rgba(17, 17, 17, 0.2)',
+                '--barra-bg': hexARgba(acento, 0.35),
+                '--overlay-bg': 'rgba(17, 17, 17, 0.35)',
+                /* Didot/Bodoni están en varios sistemas; si no, cae a Times.
+                   No se carga una fuente de red: el llavero se usa con mala señal. */
+                '--titulo-fuente': 'Didot, "Bodoni MT", "Times New Roman", serif',
+                '--titulo-espacio': '0.18em',
+                /* El acento pastel no alcanza contraste sobre blanco; el título
+                   va en negro, como el nombre de la marca en el logo. */
+                '--titulo-color': '#111111',
+                '--titulo-tamano': '1.45rem',
+                '--field-border': hexARgba(acento, 0.4)
+            };
+
+            Object.keys(vars).forEach((clave) => {
+                raiz.style.setProperty(clave, vars[clave]);
+            });
+        }
+
         function aplicarCliente() {
             document.title = CLIENTE.titulo;
             document.documentElement.style.setProperty('--fondo', CLIENTE.fondo);
@@ -1136,6 +1244,7 @@
                se aplica cuando el fondo es una imagen. */
             document.documentElement.style.setProperty(
                 '--velo', /^\s*url\(/i.test(CLIENTE.fondo) ? 'rgba(0, 0, 0, 0.8)' : 'transparent');
+            aplicarTema(CLIENTE.tema);
             document.getElementById('botonWhatsapp').href =
                 'https://wa.me/' + CONTACTO.whatsapp +
                 '?text=' + encodeURIComponent(CONTACTO.mensajeWhatsapp);
