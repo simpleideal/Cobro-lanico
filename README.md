@@ -76,11 +76,15 @@ los botones son casi negras. Los tonos claros funcionan; los muy saturados no.
 
 ### `CONTACTO`
 
-Quien recibe el comprobante. Alimenta el botón flotante de WhatsApp y el botón
-"Guardar Contacto en Agenda", y no cambia según el banco.
+Quien recibe el comprobante. Alimenta el botón flotante de WhatsApp, el botón
+"Guardar Contacto en Agenda" y el ícono de Instagram del pie, y no cambia
+según el banco.
 
 El campo `whatsapp` va con código de país y solo dígitos: `56912345678`, sin `+`
 ni espacios ni guiones.
+
+`instagram` es opcional: la URL pública del perfil. Sin él, el pie de redes
+no se muestra. No guardar parámetros de sesión (`stkn` y similares).
 
 ### `CUENTAS`
 

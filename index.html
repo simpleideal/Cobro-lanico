@@ -346,6 +346,40 @@
             text-align: center;
         }
 
+        /* El pie de redes se llena desde CONTACTO. Sin enlace, queda oculto. */
+        .pie-redes {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-top: 18px;
+            padding-top: 16px;
+            border-top: 1px solid var(--card-border);
+        }
+
+        .red-social {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            color: var(--btn-text);
+            box-shadow: var(--btn-shadow);
+            transition: transform 0.15s ease;
+        }
+
+        .red-social:active {
+            transform: scale(0.94);
+        }
+
+        .red-social svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+        }
+
         .whatsapp-float {
             position: fixed;
             bottom: calc(24px + env(safe-area-inset-bottom, 0px));
@@ -628,6 +662,14 @@
             Antes de confirmar, revisa que el banco y el número de cuenta hayan
             quedado bien.
         </p>
+
+        <footer class="pie-redes" id="pieRedes" hidden>
+            <a id="botonInstagram" class="red-social" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm11.25 1.75a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
+                </svg>
+            </a>
+        </footer>
     </div>
 
     <a id="botonWhatsapp" class="whatsapp-float" target="_blank" rel="noopener" aria-label="WhatsApp">
@@ -707,7 +749,9 @@
             // Solo dígitos con código de país, sin + ni espacios.
             whatsapp: '56957543101',
             mensajeWhatsapp: 'Hola Nicole, envío comprobante de transferencia.',
-            archivoVcard: 'La_Nico.vcf'
+            archivoVcard: 'La_Nico.vcf',
+            // Perfil público, sin parámetros de sesión del enlace original.
+            instagram: 'https://www.instagram.com/tienda_lanico'
         };
 
         /* Las cuentas del cliente, en el orden en que aparecen las pestañas.
@@ -1269,6 +1313,14 @@
             document.getElementById('botonWhatsapp').href =
                 'https://wa.me/' + CONTACTO.whatsapp +
                 '?text=' + encodeURIComponent(CONTACTO.mensajeWhatsapp);
+
+            const pieRedes = document.getElementById('pieRedes');
+            const botonInstagram = document.getElementById('botonInstagram');
+            if (CONTACTO.instagram) {
+                botonInstagram.href = CONTACTO.instagram;
+                botonInstagram.setAttribute('aria-label', 'Instagram de ' + CLIENTE.empresa);
+                pieRedes.hidden = false;
+            }
         }
 
         aplicarCliente();
