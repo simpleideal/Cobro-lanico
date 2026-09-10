@@ -7,6 +7,48 @@ con los datos listos para copiar y pegar en la app del banco.
 Todo vive en un solo archivo, `index.html`, sin dependencias ni compilación.
 Se publica con GitHub Pages.
 
+## Idea práctica: dos personas, dos mensajes
+
+El llavero NFC se usa en la calle, con apuro. El caso más claro —y el de los
+llaveros para Uber más adelante— es este:
+
+1. El pasajero (el **tercero**) se sube al auto.
+2. El conductor (el **cliente**) le muestra el llavero.
+3. El pasajero acerca el teléfono, copia los datos y hace la transferencia
+   en la app de su banco.
+4. El pasajero toca el ícono verde de WhatsApp.
+5. El conductor recibe ese mensaje y se entera de que le van a transferir.
+
+Hay dos lectores. No se les puede decir lo mismo en el mismo texto.
+
+| Quién | Dónde lo lee | Qué tiene que entender |
+| --- | --- | --- |
+| El tercero (quien paga) | La página que abre el NFC | Que debe subir el voucher o mostrárselo a quien le está cobrando (en Uber: al conductor). |
+| El cliente (quien cobra) | El WhatsApp que le llega | Que le van a hacer una transferencia. No que el pago ya está hecho. |
+
+Por eso la página lleva el aviso con el pin (`aviso-voucher`):
+
+> 📌 Importante: sube tu voucher por WhatsApp o muéstraselo a quien te está cobrando.
+
+Eso lo lee el tercero, en su teléfono, mientras copia los datos. En un llavero
+para Uber se puede cambiar “a quien te está cobrando” por “al conductor”.
+
+El texto prellenado de WhatsApp (`CONTACTO.mensajeWhatsapp`) va dirigido al
+cliente, en primera persona, porque ese chat lo recibe él:
+
+```js
+mensajeWhatsapp: 'Hola Nicole, te aviso que haré la transferencia.',
+```
+
+Si el WhatsApp dice “sube tu voucher”, el conductor cree que le hablan a él.
+Si dice “envío el comprobante”, parece que el pago ya está hecho y se presta
+para malentendidos.
+
+Al armar llaveros para Uber, partir de la plantilla
+[`simpleideal/cobro`](https://github.com/simpleideal/cobro), poner los datos
+del conductor y dejar esa separación: aviso de voucher en la página, aviso de
+transferencia en el WhatsApp.
+
 ## Hacer un llavero para un cliente nuevo
 
 1. Crear el repositorio nuevo a partir de este (botón **Use this template** en
@@ -85,6 +127,10 @@ ni espacios ni guiones.
 
 `instagram` es opcional: la URL pública del perfil. Sin él, el pie de redes
 no se muestra. No guardar parámetros de sesión (`stkn` y similares).
+
+`mensajeWhatsapp` es lo que el tercero envía al cliente. Tiene que avisar que
+harán la transferencia, no ordenarle al cliente que suba un voucher. El aviso
+de voucher está en la página, para quien paga.
 
 ### `CUENTAS`
 
